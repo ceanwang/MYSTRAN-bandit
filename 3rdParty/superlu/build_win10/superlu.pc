@@ -1,0 +1,12 @@
+prefix=C:/Program Files (x86)/SuperLU
+libdir=C:/Program Files (x86)/SuperLU/lib
+includedir=C:/Program Files (x86)/SuperLU/include
+
+Name: SuperLU
+Description: Direct solution of large, sparse systems of linear equations
+Version: 5.2.2
+URL: http://crd-legacy.lbl.gov/~xiaoye/SuperLU/
+
+Libs: -L${libdir} -lsuperlu
+Libs.private: blas -lm
+Cflags: -I${includedir}
