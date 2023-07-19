@@ -29,7 +29,7 @@ endif (BUILD_WITH_SUPERLU)
 
 
 if (BUILD_WITH_LAPACK)
-	file(GLOB_RECURSE BLAS_FILES "3rdParty/lapack-3.11.0/BLAS/src/*.f*")
+	file(GLOB_RECURSE BLAS_FILES "3rdParty/lapack-3.11.0/BLAS/SRC/*.f*")
 	add_library(bjBLAS ${BLAS_FILES})
 endif (BUILD_WITH_LAPACK)
 
