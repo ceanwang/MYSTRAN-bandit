@@ -69,6 +69,20 @@ jobs:
         Binaries/mystran Build_Test_Cases/statics/BAR-I12.DAT
         Binaries/mystran Build_Test_Cases/statics/cshear.bdf
 
+    -name: 打包Linux/macOS可执行文件
+      if:matrix.kind!='windows'
+      run:|
+        cd ./publish/${{ matrix.kind }}
+        tar -czvf ../../Mystran-${{ matrix.kind }}-${{ steps.get_version.outputs.VERSION }}${{ matrix.extension }} *
+      
+    # 上传构建产物作为工作流构件(artifacts)
+    -name: 上传构建产物bj
+      uses:actions/upload-artifact@v4
+      with:
+        name:Mystran-${{matrix.kind}}-${{steps.get_version.outputs.VERSION}}
+        path:./Mystran-${{matrix.kind}}-${{steps.get_version.outputs.VERSION}}${{matrix.extension}}
+        retention-days:1
+
 upload-to-release:
     needs:build
 #    runs-on:ubuntu-latest
