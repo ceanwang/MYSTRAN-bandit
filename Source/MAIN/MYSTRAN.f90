@@ -118,6 +118,7 @@
       REAL(DOUBLE)                    :: TIME_START         ! Time job is started
       REAL(DOUBLE) , ALLOCATABLE      :: UG_NORM(:,:)       ! Norm of UG_COL vector
 
+      integer                         :: isDebug=0
 ! **********************************************************************************************************************************
       EPS1 = EPSIL(1)
 
