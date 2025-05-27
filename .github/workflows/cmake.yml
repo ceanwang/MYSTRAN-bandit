@@ -6,6 +6,13 @@ on:
   pull_request:
     branches: [ "main" ]
 
+# 为整个工作流设置权限
+permissions:
+  contents:write
+  id-token:write
+  issues:write
+
+
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
