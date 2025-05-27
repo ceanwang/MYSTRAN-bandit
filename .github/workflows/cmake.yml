@@ -69,3 +69,48 @@ jobs:
         Binaries/mystran Build_Test_Cases/statics/BAR-I12.DAT
         Binaries/mystran Build_Test_Cases/statics/cshear.bdf
 
+upload-to-release:
+    needs:build
+#    runs-on:ubuntu-latest
+    
+    steps:
+      -name:提取版本号
+        id:get_version
+        shell:bash
+        run:echo"VERSION=${GITHUB_REF#refs/tags/v}">>$GITHUB_OUTPUT
+      
+      # 下载所有平台构建产物
+#      -name:下载Windows构建产物
+#        uses:actions/download-artifact@v4
+#        with:
+#          name:Mystran-windows-${{steps.get_version.outputs.VERSION}}
+#          path:./artifacts
+      
+      -name:下载Linux构建产物
+        uses:actions/download-artifact@v4
+        with:
+          name:Mystran-linux-${{steps.get_version.outputs.VERSION}}
+          path:./artifacts
+      
+#      -name:下载macOS构建产物
+#        uses:actions/download-artifact@v4
+#        with:
+#          name:Mystran-macOS-${{steps.get_version.outputs.VERSION}}
+#          path:./artifacts
+      
+      # 列出下载的文件以确认
+      -name:列出下载的文件
+        run:ls-la./artifacts
+      
+      # 统一上传到GitHub Release
+      -name:上传所有文件到GitHubRelease
+        uses:softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN:${{secrets.GITHUB_TOKEN}}
+        with:
+          files:./artifacts/*
+          tag_name:${{github.ref}}
+          fail_on_unmatched_files:false
+          draft:false
+          name:Mystran版本${{steps.get_version.outputs.VERSION}}
+          generate_release_notes:true 
