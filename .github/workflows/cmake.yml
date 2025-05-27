@@ -21,21 +21,21 @@ jobs:
     strategy:
       fail-fast:false
       matrix:
-        #kind:['windows','linux','macOS']
-        kind:['linux']
+        kind:['windows','linux','macOS']
+        #kind:['linux']
         include:
-          #-kind:windows
-          #  os:windows-latest
-          #  target:win-x64
-          #  extension:'.zip'
+          -kind:windows
+            os:windows-latest
+            target:win-x64
+            extension:'.zip'
           -kind:linux
             os:ubuntu-latest
             target:linux-x64
             extension:'.tar.gz'
-          #-kind:macOS
-          #  os:macos-latest
-          #  target:osx-x64
-          #  extension:'.tar.gz'
+          -kind:macOS
+            os:macos-latest
+            target:osx-x64
+            extension:'.tar.gz'
 
     runs-on:${{matrix.os}}
     
